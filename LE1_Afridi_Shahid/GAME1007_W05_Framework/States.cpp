@@ -151,7 +151,37 @@ void GameState::Resume()
 	// Resume music playing track.
 }
 
+EndState::EndState(){}
 
+void EndState::Enter()
+{
+	cout << "Entering EndState!" << endl;
+	// Stop the playing music track.
+}
+
+void EndState::Update()
+{
+	if (Engine::Instance().KeyDown(SDL_SCANCODE_Q))
+	{
+		cout << "Exiting the program!" << endl;
+		STMA::Quit();
+	}
+}
+
+void EndState::Render()
+{
+	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 255, 255, 0, 255);
+	SDL_RenderClear(Engine::Instance().GetRenderer());
+
+	// Render the end screen.
+	State::Render();
+}
+
+void EndState::Exit()
+{
+	cout << "Exiting EndState!" << endl;
+	// Cleanup resources.
+}
 
 /*for (auto const& i : m_sfx)
 {
