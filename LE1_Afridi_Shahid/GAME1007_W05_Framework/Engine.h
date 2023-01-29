@@ -1,4 +1,4 @@
-// #pragma once
+// #pragma once       // Added files
 #ifndef __ENGINE_H__
 #define __ENGINE_H__
 #include <SDL.h>
@@ -15,6 +15,8 @@ class Engine
 public: // Put public heading first so you ALWAYS question why things are public!
 	Engine(); // What? What is this?
 	int Run();
+	bool KeyDown(SDL_Scancode);
+	double deltaTime;
 
 private:
 	// For fixed timestep.
@@ -31,12 +33,10 @@ private:
 
 	chrono::time_point<chrono::steady_clock> lastFrameTime, thisFrameTime; // Cleaned this up.
 	chrono::duration<double> lastFrameDuration;
-	double deltaTime;
 
 	int Init(const char*, const int, const int, const int, const int, const int);
 	void HandleEvents();
 	void Wake();
-	bool KeyDown(SDL_Scancode);
 	void Update();
 	void Sleep();
 	void Render();
