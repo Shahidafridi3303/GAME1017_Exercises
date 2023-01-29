@@ -30,6 +30,7 @@ public:
 	virtual void Render();
 	virtual void Exit();
 private:
+	
 	//std::map<std::string, Mix_Music*> musicTracks;
 	// Map for music track goes here.
 };
