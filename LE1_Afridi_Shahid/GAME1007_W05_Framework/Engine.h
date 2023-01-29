@@ -8,7 +8,7 @@ using namespace std;
 
 #define WIDTH 1024
 #define HEIGHT 768
-#define FPS 60
+#define FPS 50     // 60
 
 class Engine
 {
