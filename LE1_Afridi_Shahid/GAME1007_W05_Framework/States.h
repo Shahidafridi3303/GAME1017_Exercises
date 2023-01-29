@@ -1,9 +1,13 @@
 #pragma once
 #ifndef __STATES_H__
 #define __STATES_H__
+
 #include <map>
-#include <SDL_mixer.h>
 #include <string>
+#include <SDL_mixer.h>
+
+//Mix_Music* m_pGuile;
+//std::map<std::string, Mix_Chunk*> m_sfx;
 
 class State // Abstract base class.
 { // No objects of state can ever be created.
@@ -25,12 +29,20 @@ public:
 	virtual void Update();
 	virtual void Render();
 	virtual void Exit();
-	virtual void Resume();
 private:
+	//std::map<std::string, Mix_Music*> musicTracks;
 	// Map for music track goes here.
-	// std::map<std::string, Mix_Music*> m_music;
 };
 
+class PauseState : public State
+{
+public:
+	PauseState();
+	virtual void Enter();
+	virtual void Update();
+	virtual void Render();
+	virtual void Exit();
+};
 //Make definition for PauseState.
 
 class GameState : public State
@@ -43,10 +55,21 @@ public:
 	virtual void Exit();
 	virtual void Resume();
 private:
+	//std::map<std::string, Mix_Music*> musicTracks;
 	// Map for music track goes here.
-	//std::map<std::string, Mix_Music*> m_music;// Map for sound effects goes here.
+	std::map<std::string, Mix_Chunk*> m_sfx;
+	// Map for sound effects goes here.
 };
 
+class EndState : public State
+{
+public:
+	EndState();
+	virtual void Enter();
+	virtual void Update();
+	virtual void Render();
+	virtual void Exit();
+};
 //Make definition for EndState.
 
 #endif

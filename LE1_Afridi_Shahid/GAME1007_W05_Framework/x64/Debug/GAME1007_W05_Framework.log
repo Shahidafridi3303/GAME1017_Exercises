@@ -1,6 +1,2 @@
-﻿  Engine.cpp
-  StateManager.cpp
-  States.cpp
-  Generating Code...
-States.obj : error LNK2001: unresolved external symbol "public: virtual void __cdecl TitleState::Resume(void)" (?Resume@TitleState@@UEAAXXZ)
-C:\Users\Shahi\Desktop\GAME1017_Exercises\LE1_Afridi_Shahid\\Bin\GAME1007_W05_Framework.exe : fatal error LNK1120: 1 unresolved externals
+﻿  States.cpp
+  GAME1007_W05_Framework.vcxproj -> C:\Users\Shahi\Desktop\GAME1017_Exercises\LE1_Afridi_Shahid\Bin\GAME1007_W05_Framework.exe

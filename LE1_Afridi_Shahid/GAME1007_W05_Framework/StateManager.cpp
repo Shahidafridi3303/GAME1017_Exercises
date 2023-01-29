@@ -29,7 +29,7 @@ void StateManager::PopState()
 	s_states.back() = nullptr;
 	s_states.pop_back();
 
-	s_states.back()->Resume();
+	s_states.back()->Resume(); //***
 }
 
 void StateManager::ChangeState(State* pState)
