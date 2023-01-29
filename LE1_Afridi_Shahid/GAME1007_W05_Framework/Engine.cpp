@@ -5,7 +5,7 @@ using namespace std;
 
 Engine::Engine():m_pWindow(nullptr), m_pRenderer(nullptr), m_isRunning(false)
 {
-	
+	cout << "Constructing Engine object!" << endl;
 }
 
 int Engine::Run()
@@ -91,6 +91,17 @@ bool Engine::KeyDown(SDL_Scancode c)
 			return true;
 	}
 	return false;
+}
+
+SDL_Renderer* Engine::GetRenderer()
+{
+	return m_pRenderer;
+}
+
+Engine& Engine::Instance() // This is the ststic method.
+{
+	static Engine instance; // This is the singleton instance of Engine.
+	return instance;
 }
 
 void Engine::Update()
