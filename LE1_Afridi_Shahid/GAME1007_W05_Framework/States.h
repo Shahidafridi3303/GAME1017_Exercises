@@ -7,11 +7,41 @@ class State // Abstract base class.
 public:
 	virtual void Enter() = 0; // Pure virtual method.
 	virtual void Update() = 0;
-	void Render(); // Make a definition for Renderer();
+	virtual void Render(); // Will be defined in State.
 	virtual void Exit() = 0;
-	void Resume() {};
+	virtual void Resume() {}; // Considered defined for all subclasses.
 protected: // Private but inherited.
 	State () = default;
 };
+
+class TitleState : public State
+{
+public:
+	TitleState();
+	virtual void Enter();
+	virtual void Update();
+	virtual void Render();
+	virtual void Exit();
+private:
+	// Map for music track goes here.
+};
+
+//Make definition for PauseState.
+
+class GameState : public State
+{
+public:
+	GameState();
+	virtual void Enter();
+	virtual void Update();
+	virtual void Render();
+	virtual void Exit();
+	virtual void Resume();
+private:
+	// Map for music track goes here.
+	// Map for sound effects goes here.
+};
+
+//Make definition for EndState.
 
 #endif

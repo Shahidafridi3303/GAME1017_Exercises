@@ -1,6 +1,7 @@
 #include "Engine.h"
 #include <iostream>
 #include <string>
+#include "StateManager.h"
 using namespace std;
 
 Engine::Engine():m_pWindow(nullptr), m_pRenderer(nullptr), m_isRunning(false)
@@ -49,7 +50,9 @@ int Engine::Init(const char* title, const int xPos, const int yPos,
 		return 1;
 	}
 	// Initialize SDL sublibraries.
-	
+
+	// Example-specific initialization.
+	STMA::ChangeState(new TitleState());
 	// Initialize rest of framework.
 	m_fps = 1.0 / (double)FPS; // Converts FPS into a fraction of seconds.
 	m_pKeystates = SDL_GetKeyboardState(nullptr);
@@ -107,7 +110,7 @@ Engine& Engine::Instance() // This is the ststic method.
 void Engine::Update()
 {
 	cout << "Updating frame..." << endl;
-	
+	STMA::Update();
 }
 
 void Engine::Sleep() 
@@ -123,10 +126,7 @@ void Engine::Sleep()
 void Engine::Render()
 {
 	cout << "Rendering changes..." << endl;
-	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
-	SDL_RenderClear(m_pRenderer);
-	
-	SDL_RenderPresent(m_pRenderer); // Flips the buffers.
+	STMA::Render();
 }
 
 void Engine::Clean()
@@ -134,6 +134,6 @@ void Engine::Clean()
 	cout << "Cleaning up..." << endl;
 	SDL_DestroyRenderer(m_pRenderer);
 	SDL_DestroyWindow(m_pWindow);
-	
+	STMA::Quit();
 	SDL_Quit();
 }
