@@ -1,6 +1,7 @@
 #include "States.h"
 #include "StateManager.h"
 #include "Engine.h"
+#include <SDL_mixer.h>
 #include <iostream>
 using namespace std;
 
@@ -48,6 +49,15 @@ GameState::GameState(){}
 void GameState::Enter()
 {
 	cout << "Entering GameState!" << endl;
+
+	//SoundManager::Instance().Load("../Assets/Audio/gigachad.mp3", "music", SoundType::SOUND_MUSIC);
+
+	////Music background
+	//Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+	//Mix_Music* music = Mix_LoadMUS("../Assets/aud/music.mp3"); // my fav music
+	//Mix_VolumeMusic(MIX_MAX_VOLUME * 0.1f); // volume of music
+	//Mix_PlayMusic(music, 0);
+
 	// Load sfx tracks, and add them to map. (x2)
 	// Load music track, and add it to map.
 	// Add play it.
@@ -61,6 +71,16 @@ void GameState::Update()
 		// Pause the music track.
 		// STMA::PushState(new PauseState());
 	}
+
+	/*else if (Engine::Instance().KeyDown(SDL_SCANCODE_1))
+	{
+		Mix_PlayChannel(-1, m_sfx["sound_effect_1"], 0);
+	}
+	else if (Engine::Instance().KeyDown(SDL_SCANCODE_2))
+	{
+		Mix_PlayChannel(-1, m_sfx["sound_effect_2"], 0);
+	}*/
+
 	// Parse 'X' ScanCode and change to new EndState.
 	// Parse 1 key, and play first sfx.
 	// Parse 2 key, and play second sfx.
