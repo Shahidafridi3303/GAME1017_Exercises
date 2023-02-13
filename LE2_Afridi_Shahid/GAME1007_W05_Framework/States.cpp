@@ -12,18 +12,18 @@ void State::Render()
 	SDL_RenderPresent(REMA::Instance().GetRenderer());
 }
 
-TitleState::TitleState(){}
+TitleState::TitleState() {}
 
 void TitleState::Enter()
 {
-	
+
 }
 
 void TitleState::Update()
 {
 	if (EVMA::KeyPressed(SDL_SCANCODE_N))
 	{
-		STMA::ChangeState( new GameState() );
+		STMA::ChangeState(new GameState());
 	}
 }
 
@@ -36,7 +36,7 @@ void TitleState::Render()
 
 void TitleState::Exit()
 {
-	
+
 }
 
 void GameState::ClearTurrets()
@@ -51,7 +51,7 @@ void GameState::ClearTurrets()
 	// You can assimilate some parts of this code for deleting bullets and enemies.
 }
 
-GameState::GameState():m_spawnCtr(1) {}
+GameState::GameState() :m_spawnCtr(1) {}
 
 void GameState::Enter()
 {
@@ -70,8 +70,8 @@ void GameState::Update()
 	// Parse T and C events.
 	if (EVMA::KeyPressed(SDL_SCANCODE_T))
 	{
-		m_turrets.push_back(new Turret({0,0,100,100},
-			{50.0f, 615.0f, 100.0f,100.0f}));
+		m_turrets.push_back(new Turret({ 0,0,100,100 },
+			{ 50.0f, 615.0f, 100.0f,100.0f }));
 	}
 	if (EVMA::KeyPressed(SDL_SCANCODE_C))
 	{
@@ -97,11 +97,11 @@ void GameState::Update()
 			// if deleteMe of bullet is true
 				// delete s_bullets[i]
 				// set s_bullets[i] to nullptr
-	
+
 		// for all enemies, similar to above
 
 	// Check for collisions with bullets and enemies.
-	
+
 		// for all bullets
 			// for all enemies
 				// check collision (use AABB check with SDL_FRect and SDL_FRect)
@@ -126,7 +126,7 @@ void GameState::Render()
 	SDL_RenderDrawRect(REMA::Instance().GetRenderer(), &spawnBox);
 
 	// This code below prevents SDL_RenderPresent from running twice in one frame.
-	if ( dynamic_cast<GameState*>( STMA::GetStates().back() ) ) // If current state is GameState.
+	if (dynamic_cast<GameState*>(STMA::GetStates().back())) // If current state is GameState.
 		State::Render();
 }
 
@@ -157,7 +157,7 @@ void GameState::Exit()
 
 void GameState::Resume()
 {
-	
+
 }
 
 // This is how static properties are allocated.

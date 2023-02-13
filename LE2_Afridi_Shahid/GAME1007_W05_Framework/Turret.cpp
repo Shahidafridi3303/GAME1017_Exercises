@@ -10,12 +10,11 @@
 
 Turret::Turret(const SDL_Rect src, const SDL_FRect dst) :Sprite(src, dst), m_angle(0.0), m_hasTarget(false), m_fireCtr(0)
 {
-	
+
 }
 
 void Turret::Update()
 {
-	if (m_fireCtr > 0) m_fireCtr--; // Always reload turret.
 	// Click and drag functionality. Note there is SDL_PointInFRect but the Point is float too.
 	if (EVMA::MouseHeld(1) && COMA::PointAABBCheck(EVMA::GetMousePos(), m_dst))
 	{
@@ -24,8 +23,6 @@ void Turret::Update()
 	}
 	m_angle = 0.0;
 	m_hasTarget = false;
-	// If there are no Enemies, turret shouldn't acquire target. So, return.
-	if (GameState::Enemies().size() == 0) return;
 	// Store center points of closest enemy and turret. For distance check.
 	SDL_FPoint turretCenter = this->GetCenter();
 	SDL_FPoint closestEnemy = GameState::Enemies()[0]->GetCenter();
@@ -49,13 +46,14 @@ void Turret::Update()
 		if (m_fireCtr == 0) // Is turret ready to fire?
 		{
 			SDL_FPoint normalVector = MAMA::Normalize(deltaVector);
-			GameState::Bullets().push_back(new Bullet({ turretCenter.x - 2.0f, turretCenter.y - 2.0f , 4.0f, 4.0f },
-				normalVector.x, normalVector.y));
+			GameState::Bullets().push_back(new Bullet{
+				{turretCenter.x - 2.0f,turretCenter.y - 2.0f,4.0f,4.0f},
+				normalVector.x,normalVector.y });
 			m_fireCtr = s_coolDown;
 		}
 	}
+	if (m_fireCtr > 0) m_fireCtr--; // Always reload turret.
 }
-
 void Turret::Render()
 {
 	SDL_RenderCopyExF(REMA::Instance().GetRenderer(), TEMA::GetTexture("turret"),
