@@ -29,6 +29,7 @@ public:
 	virtual void Update();
 	virtual void Render();
 	virtual void Exit();
+	std::map<std::string, Mix_Chunk*> m_sfx;
 private:
 	
 	//std::map<std::string, Mix_Music*> musicTracks;
@@ -70,6 +71,8 @@ public:
 	virtual void Update();
 	virtual void Render();
 	virtual void Exit();
+private:
+	
 };
 //Make definition for EndState.
 

@@ -26,7 +26,6 @@ void TitleState::Update()
 	{
 		cout << "Changing to GameState!" << endl;
 	    STMA::ChangeState(new GameState() );
-		//Music background
 		Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
 		Mix_Music* music = Mix_LoadMUS("../Assets/aud/music.mp3"); // my fav music
 		Mix_VolumeMusic(MIX_MAX_VOLUME * 0.2f); // volume of music
@@ -92,6 +91,7 @@ void GameState::Enter()
 		Mix_AllocateChannels(16);
 		m_sfx.emplace("music1", Mix_LoadWAV("../Assets/aud/party.mp3"));
 		m_sfx.emplace("music2", Mix_LoadWAV("../Assets/aud/metro.mp3"));
+
 	}
 	// Load sfx tracks, and add them to map. (x2)
 	// Load music track, and add it to map.
@@ -157,6 +157,13 @@ EndState::EndState(){}
 void EndState::Enter()
 {
 	cout << "Entering EndState!" << endl;
+	if (Mix_Init(MIX_INIT_MP3) != 0)
+	{
+		Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 2048);
+		Mix_AllocateChannels(16);
+		//m_sfx.emplace("music1", Mix_LoadWAV("../Assets/aud/party.mp3"));
+		//m_sfx.emplace("music2", Mix_LoadWAV("../Assets/aud/metro.mp3"));
+	}
 	// Stop the playing music track.
 }
 
@@ -166,7 +173,9 @@ void EndState::Update()
 	{
 		cout << "Exiting the program!" << endl;
 		STMA::Quit();
+		//Mix_PlayChannel(-1, m_sfx["music1"], 0);
 	}
+
 }
 
 void EndState::Render()
