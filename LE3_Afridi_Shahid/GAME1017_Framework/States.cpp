@@ -196,9 +196,48 @@ void GameState::Update()
 		return;
 	}
 	// Check collision.
-	
+	vector<Asteroid*>& field = static_cast<AsteroidField*>(GetChild("field"))->GetAsteroids();
+	Ship* ship = static_cast<Ship*>(GetChild("ship"));
 	// Collision of ship and asteroids.
-	
+	if (ship != nullptr)
+	{
+		for (unsigned int i = 0; i < field.size(); i++)
+		{
+			Asteroid* ast = field.at(i);
+			if (COMA::CircleCircleCheck(ship->GetCenter(), ast->GetCenter(),
+				ship->GetRadius(), ast->GetRadius()))
+			{
+				SOMA::PlaySound("explode");
+				RemoveChild("ship");
+			}
+		}
+	}
+
+	// Collision of ship and asteroids.
+	// Collision of bullets and asteroids.
+	vector<Bullet*>& bullets = static_cast<BulletPool*>(GetChild("bullets"))->GetBullets();
+	for (unsigned int i = 0; i < bullets.size(); i++)
+	{
+		Bullet* bul = bullets.at(i);
+		for (unsigned int j = 0; j < field.size(); j++)
+		{
+			Asteroid* ast = field.at(j);
+			if (COMA::CircleCircleCheck(bul->GetCenter(), ast->GetCenter(),
+				bul->GetRadius(), ast->GetRadius()))
+			{
+				// Spawn new asteroid chunks.
+				// Hints: If the asteroid size is > 0, spawn a new left and right chunks
+				//        You can get the angle of the bullet
+
+				// End new asteroid block.
+				SOMA::PlaySound("explode");
+				bul->SetEnabled(false);
+				ast->SetEnabled(false);
+				goto end;
+			}
+		}
+	}
+	end:
 	// Collision of bullets and asteroids.
 	
 	// End collision checks.
