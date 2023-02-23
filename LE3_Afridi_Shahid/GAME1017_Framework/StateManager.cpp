@@ -5,7 +5,7 @@ void StateManager::Update()
 {
 	if (s_stateChange == true)
 		s_stateChange = false;
-	if (!s_states.empty()) 
+	if (!s_states.empty())
 		s_states.back()->Update(); // s_states.back() represents the current state running.
 }
 

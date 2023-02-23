@@ -30,7 +30,7 @@ void State::Render()
 {
 	for (auto const& i : m_objects)
 		i.second->Render();
-	if (dynamic_cast<GameState*>(this) && dynamic_cast<PauseState*>(STMA::GetStates().back())) 
+	if (dynamic_cast<GameState*>(this) && dynamic_cast<PauseState*>(STMA::GetStates().back()))
 		return; // If GameState is rendering but PauseState is the current state, return.
 	SDL_RenderPresent(REMA::GetRenderer());
 }
@@ -88,7 +88,7 @@ void TitleState::Enter()
 	TEMA::Load("../Assets/img/Title.png", "title");
 	TEMA::Load("../Assets/img/button.png", "play");
 	TEMA::Load("../Assets/img/TitleBack.jpg", "bg");
-	
+
 	SOMA::Load("../Assets/aud/Title.mp3", "title", SOUND_MUSIC);
 	SOMA::AllocateChannels(16);
 	SOMA::SetMusicVolume(32);
@@ -237,9 +237,9 @@ void GameState::Update()
 			}
 		}
 	}
-	end:
+end:
 	// Collision of bullets and asteroids.
-	
+
 	// End collision checks.
 	State::Update();
 }

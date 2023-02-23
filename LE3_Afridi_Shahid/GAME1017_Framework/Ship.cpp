@@ -1,4 +1,4 @@
-#include "Ship.h"
+﻿#include "Ship.h"
 #include "Engine.h"
 #include "AsteroidField.h"
 #include "CollisionManager.h"
@@ -93,7 +93,7 @@ void Ship::Render()
 		&m_src, &m_dst, m_angle, nullptr, SDL_FLIP_NONE);
 }
 
-const double& Ship::GetRadius()	{ return m_radius; }
+const double& Ship::GetRadius() { return m_radius; }
 
 void Ship::TeleportShip()
 {
