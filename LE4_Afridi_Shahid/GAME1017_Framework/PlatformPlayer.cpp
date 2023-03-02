@@ -23,7 +23,12 @@ void PlatformPlayer::Update()
 	switch (m_state)
 	{
 	case STATE_IDLING:
-		// Transition to jump.
+		// Transition to run.
+		if (EVMA:: KeyHeld(SDL_SCANCODE_A) || EVMA::KeyHeld(SDL_SCANCODE_D))
+		{
+			SetAnimation(STATE_RUNNING, 0, 0, 0);
+		}
+			// Transition to jump.
 		if (EVMA::KeyPressed(SDL_SCANCODE_SPACE) && m_grounded)
 		{
 			m_accelY = -kJumpForce; // SetAccelY(-JUMPFORCE);
@@ -32,22 +37,61 @@ void PlatformPlayer::Update()
 			SetAnimation(STATE_JUMPING, 0, 0, 0);
 		}
 		break;
+	case STATE_RUNNING:
+		// Fill in run state for LE4
+		// Move left and right.
+		if (EVMA::KeyHeld(SDL_SCANCODE_A))
+		{
+			m_accelX = -1.5;
+			// Change character facing for animation.
+		}
+		else if (EVMA::KeyHeld(SDL_SCANCODE_D))
+		{
+			m_accelX = 1.5;
+		}
+		// Transition to jump.
+		if (EVMA::KeyPressed(SDL_SCANCODE_SPACE) && m_grounded)
+		{
+			m_accelY = -kJumpForce; // SetAccelY(-JUMPFORCE);
+			m_grounded = false; // SetGrounded(false);
+			SOMA::PlaySound("jump");
+			SetAnimation(STATE_JUMPING, 0, 0, 0);
+		}
+		// TRansition to idle.
+		if (!EVMA::KeyHeld(SDL_SCANCODE_A) && !EVMA::KeyHeld(SDL_SCANCODE_D))
+		{
+			SetAnimation(STATE_IDLING, 0, 0, 0);   // Set actual parameters for animation.
+		}
+		break;
 	case STATE_JUMPING:
+		// Move in mid-air.
+		if (EVMA::KeyHeld(SDL_SCANCODE_A))
+		{
+			m_accelX = -1.5;
+			// Change character facing for animation.
+		}
+		else if (EVMA::KeyHeld(SDL_SCANCODE_D))
+		{
+			m_accelX = 1.5;
+		}
 		// Hit the ground, transition to run.
 		if (m_grounded)
 		{
-			SetAnimation(STATE_IDLING, 0, 0, 0);
+			SetAnimation(STATE_RUNNING, 0, 0, 0);
 		}
 		break;
 	}
 	// Player movement. X axis first.
-		
+	m_velX += m_accelX; // Acceleration.
+	m_velX *= (m_grounded ? m_drag : 1.0); // Deceleration.
+	m_velX = std::min(std::max(m_velX, -m_maxVelX), m_maxVelY);
+	m_dst.x += (float)m_velX;
 	// Y axis now.
 	m_velY += m_accelY + m_grav;
 	m_velY = std::min(std::max(m_velY, -m_maxVelY), m_maxVelY);
 	m_dst.y += (float)m_velY;
-	
-	m_accelX = m_accelY = 0.0; // Resetting accel every frame.
+	// Resetting accel every frame.
+	m_accelX = m_accelY = 0.0; 
 	// Invoke the animation.
 	Animate();
 }
