@@ -220,7 +220,7 @@ void GameState::Render()
 {
 	SDL_SetRenderDrawColor(REMA::GetRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(REMA::GetRenderer());
-	State::Render();
+	State::Render();              
 }
 
 void GameState::Exit()
