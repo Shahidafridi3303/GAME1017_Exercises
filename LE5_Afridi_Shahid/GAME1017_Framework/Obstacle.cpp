@@ -39,10 +39,10 @@ void Obstacle::Render()
 		// Render the Image.
 		// SDL_RenderCopyF(...); // Remember includes!
 		// Red box for Week 9 lab...
-		SDL_SetRenderDrawColor(REMA::GetRenderer(), 255, 0, 0, 255);
+		SDL_SetRenderDrawColor(REMA::GetRenderer(), 255, 255, 234, 255);
 		SDL_RenderFillRectF(REMA::GetRenderer(), &m_dst);
 	}
 	// Render border for just Week 9 lab.
-	SDL_SetRenderDrawColor(REMA::GetRenderer(), 128, 0, 128, 255);
+	SDL_SetRenderDrawColor(REMA::GetRenderer(), 128, 235, 128, 255);
 	SDL_RenderDrawRectF(REMA::GetRenderer(), &m_dst);
 }

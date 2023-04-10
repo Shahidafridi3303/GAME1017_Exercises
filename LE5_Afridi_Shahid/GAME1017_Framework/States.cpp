@@ -85,8 +85,10 @@ void TitleState::Enter()
 {
 	cout << "Entering TitleState..." << endl;
 	TEMA::Load("../Assets/img/button.png", "play");
+	SOMA::Load("../Assets/aud/Title.mp3", "title", SOUND_MUSIC);
 	SOMA::AllocateChannels(16);
 	SOMA::SetMusicVolume(32);
+	SOMA::PlayMusic("title", -1, 2000);
 
 	AddChild("play", new PlayButton({ 0, 0, 400, 100 }, { 412.0f, 384.0f, 200.0f, 50.0f }, "play"));
 }
@@ -98,7 +100,7 @@ void TitleState::Update()
 
 void TitleState::Render()
 {
-	SDL_SetRenderDrawColor(REMA::GetRenderer(), 32, 0, 0, 255);
+	SDL_SetRenderDrawColor(REMA::GetRenderer(), 132, 74, 50, 255);
 	SDL_RenderClear(REMA::GetRenderer());
 	State::Render();
 }
